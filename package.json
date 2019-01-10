@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/matze-kalle/twitter-profile-media-downloader#readme",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "twitter-lite": "^0.9.0"
   }
 }
