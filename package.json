@@ -4,6 +4,7 @@
   "description": "Download all media of a Twitter profile.",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node scripts/create-dotenv.js",
     "start": "node -r dotenv/config ./index.js"
   },
   "repository": {
