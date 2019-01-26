@@ -6,7 +6,7 @@ const TEMPLATE = [
     'TWITTER_CONSUMER_KEY=',
     'TWITTER_CONSUMER_SECRET=',
     '',
-    'TPMD_PORT=',
+    'TPMDL_PORT=',
     '',
 ];
 
