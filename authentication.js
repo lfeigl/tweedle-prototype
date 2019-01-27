@@ -3,15 +3,14 @@ const Twitter = require('twitter-lite');
 const consumerKey = process.env.TWITTER_CONSUMER_KEY;
 const consumerSecret = process.env.TWITTER_CONSUMER_SECRET;
 let bearerToken = process.env.TWITTER_BEARER_TOKEN;
-
-module.exports = authenticate;
+let app = null;
 
 async function authenticate() {
     if (_.isEmpty(bearerToken)) {
         bearerToken = await getBearerToken();
     }
 
-    return new Twitter({
+    app = new Twitter({
         bearer_token: bearerToken,
     });
 }
@@ -25,3 +24,10 @@ async function getBearerToken() {
     const res = await user.getBearerToken();
     return res.access_token;
 }
+
+module.exports = {
+    authenticate: authenticate,
+    getApp: () => {
+        return app;
+    },
+};
