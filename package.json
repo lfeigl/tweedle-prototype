@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "node scripts/create-dotenv.js",
-    "start": "node -r dotenv/config ./index.js"
+    "start": "node -r dotenv/config ./index.js",
+    "dev-watch": "supervisor -s -pid pid.log -n error ./index.js"
   },
   "repository": {
     "type": "git",
