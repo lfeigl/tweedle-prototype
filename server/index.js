@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 require('dotenv').config();
 
 const express = require('express');
