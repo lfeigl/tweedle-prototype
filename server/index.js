@@ -17,7 +17,14 @@ server.get('/', (req, res) => {
 
 server.get('/get', getMediaApi);
 
-server.listen(port, () => {
+server.listen(port, async () => {
     console.log(`TPMDL: Listening on port ${port}.`);
-    authentication.authenticate();
+
+    try {
+        console.log('TPMDL: Authenticate to Twitter API...');
+        await authentication.authenticate();
+        console.log('TPMDL: Authenticated.');
+    } catch (err) {
+        console.error(err);
+    }
 });

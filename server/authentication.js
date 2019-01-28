@@ -7,12 +7,23 @@ let app = null;
 
 async function authenticate() {
     if (_.isEmpty(bearerToken)) {
-        bearerToken = await getBearerToken();
+        try {
+            bearerToken = await getBearerToken();
+        } catch (err) {
+            throw err;
+        }
     }
 
     app = new Twitter({
         bearer_token: bearerToken,
     });
+
+    try {
+        await app.get('statuses/user_timeline', { screen_name: 'TwitterAPI', count: 1 });
+    } catch (res) {
+        const err = _.head(res.errors);
+        throw new Error(`Twitter API error ${err.code}: ${err.message}`);
+    }
 }
 
 async function getBearerToken() {
@@ -22,7 +33,13 @@ async function getBearerToken() {
     });
 
     const res = await user.getBearerToken();
-    return res.access_token;
+
+    if (res.errors) {
+        const err = _.head(res.errors);
+        throw new Error(`Twitter API error ${err.code}: ${err.message}`);
+    } else {
+        return res.access_token;
+    }
 }
 
 module.exports = {
