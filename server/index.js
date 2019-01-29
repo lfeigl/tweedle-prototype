@@ -1,11 +1,12 @@
-/* eslint no-console: 0 */
+/* eslint no-unused-vars: 0, no-console: 0 */
 
 require('dotenv').config();
 
+const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const authentication = require('./authentication.js');
-const getMediaApi = require('./get-media.js');
+const getMediaApi = require('./get-timeline.js');
 const port = process.env.TPMDL_PORT || 3000;
 const server = express();
 
@@ -16,6 +17,16 @@ server.get('/', (req, res) => {
 });
 
 server.get('/get', getMediaApi);
+
+server.use((err, req, res, next) => {
+    const error = _.head(err.errors);
+    const status = _.head(err._headers.status);
+    const statusCode = status.substring(0, 3);
+    const statusText = status.substring(4, status.length);
+
+    console.error(`Twitter API error ${error.code}: ${error.message}`);
+    res.status(statusCode).send(statusText);
+});
 
 server.listen(port, async () => {
     console.log(`TPMDL: Listening on port ${port}.`);
