@@ -11,14 +11,16 @@ const TEMPLATE = [
     '',
 ];
 
-fs.access(DOTENV, (err) => {
-    if (err) {
-        if (err.code === 'ENOENT') {
-            fs.writeFile(DOTENV, TEMPLATE.join('\n'), (err) => {
-                if (err) throw err;
-            });
-        } else {
-            throw err;
+module.exports = () => {
+    fs.access(DOTENV, (err) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                fs.writeFile(DOTENV, TEMPLATE.join('\n'), (err) => {
+                    if (err) throw err;
+                });
+            } else {
+                throw err;
+            }
         }
-    }
-});
+    });
+};
