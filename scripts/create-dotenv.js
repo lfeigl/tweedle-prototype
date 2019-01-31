@@ -1,5 +1,6 @@
+const path = require('path');
 const fs = require('fs');
-const DOTENV = '.env';
+const DOTENV = path.resolve('.env');
 const TEMPLATE = [
     'TWITTER_BEARER_TOKEN=',
     '',
