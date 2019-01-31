@@ -4,7 +4,7 @@
   "description": "Download all media of a Twitter profile.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node scripts",
+    "postinstall": "node ./scripts/index.js",
     "start": "node ./server/index.js",
     "dev-watch": "supervisor -w ./server -s -pid pid.log -n error ./server/index.js"
   },
