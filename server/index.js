@@ -19,13 +19,18 @@ server.get('/', (req, res) => {
 server.get('/get', getMediaApi);
 
 server.use((err, req, res, next) => {
-    const error = _.head(err.errors);
-    const status = _.head(err._headers.status);
-    const statusCode = status.substring(0, 3);
-    const statusText = status.substring(4, status.length);
+    if (err.errors) {
+        const error = _.head(err.errors);
+        const status = _.head(err._headers.status);
+        const statusCode = status.substring(0, 3);
+        const statusText = status.substring(4, status.length);
 
-    console.error(`Twitter API error ${error.code}: ${error.message}`);
-    res.status(statusCode).send(statusText);
+        console.error(`Twitter API error ${error.code}: ${error.message}`);
+        res.status(statusCode).send(statusText);
+    } else {
+        console.error(err.stack);
+        res.status(500).send(err.message);
+    }
 });
 
 server.listen(port, async () => {
