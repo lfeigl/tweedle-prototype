@@ -4,6 +4,7 @@ const CONST_PARAMS = {
     count: 200,
     trim_user: true,
     include_rts: false,
+    tweet_mode: 'extended',
 };
 
 module.exports = async (req, res, next) => {
