@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const authentication = require('./authentication.js');
+const extractMedia = require('./extract-media.js');
 const CONST_PARAMS = {
     count: 200,
     trim_user: true,
@@ -33,6 +34,9 @@ module.exports = async (req, res, next) => {
         }
     } while (timelineChunk.length >= CONST_PARAMS.count);
 
+    res.sendStatus(200);
+
     timeline.push(duplicate);
-    res.send(timeline);
+    const mediaTweets = _.filter(timeline, 'extended_entities');
+    extractMedia(mediaTweets);
 };
