@@ -3,31 +3,16 @@ const path = require('path');
 const fs = require('fs');
 const https = require('https');
 const mediaDir = path.resolve('media');
-const MEDIA_TYPES = {
-    photo: {
-        ext: '.jpg',
-        url: 'media_url_https',
-    },
-    video: {
-        ext: '.mp4',
-        url: null,
-    },
-    animated_gif: {
-        ext: '.mp4',
-        url: 'video_info.variants[0].url',
-    },
-};
 
 module.exports = (tweets) => {
     tweets.forEach((tweet) => {
         tweet.extended_entities.media.forEach((media) => {
-            const ext = MEDIA_TYPES[media.type].ext;
-            const filePath = path.join(mediaDir, media.id_str + ext);
-            const fileStream = fs.createWriteStream(filePath);
             let url = null;
+            let ext = null;
 
             if (media.type === 'video') {
-                let bestVideo = _.head(media.video_info.variants);
+                const extRegExp = /\/\w+$/;
+                let bestVideo = _.find(media.video_info.variants, 'bitrate');
 
                 media.video_info.variants.forEach((video) => {
                     if (video.bitrate > bestVideo.bitrate) {
@@ -36,9 +21,21 @@ module.exports = (tweets) => {
                 });
 
                 url = bestVideo.url;
+                ext = _.head(bestVideo.content_type.match(extRegExp)).replace('/', '.');
             } else {
-                url = _.get(media, MEDIA_TYPES[media.type].url);
+                const extRegExp = /\.\w+$/;
+
+                if (media.type === 'photo') {
+                    url = media.media_url_https;
+                } else {
+                    url = _.head(media.video_info.variants).url;
+                }
+
+                ext = _.head(url.match(extRegExp));
             }
+
+            const filePath = path.join(mediaDir, media.id_str + ext);
+            const fileStream = fs.createWriteStream(filePath);
 
             https.get(url, (res) => {
                 res.pipe(fileStream);
