@@ -37,6 +37,6 @@ module.exports = async (req, res, next) => {
     res.sendStatus(200);
 
     timeline.push(duplicate);
-    const mediaTweets = _.filter(timeline, 'extended_entities');
+    const mediaTweets = _.filter(timeline, 'extended_entities').reverse();
     extractMedia(mediaTweets);
 };
