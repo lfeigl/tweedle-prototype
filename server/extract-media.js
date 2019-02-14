@@ -14,11 +14,18 @@ module.exports = (tweets) => {
         tweet.extended_entities.media.forEach((media) => {
             let url = null;
             let ext = null;
+            const mediaType = {
+                photo: false,
+                video: false,
+                animated_gif: false,
+            };
+
+            mediaType[media.type] = true;
 
             lastDate === tpmdlDate ? dateCounter++ : dateCounter = 1;
             lastDate = tpmdlDate;
 
-            if (media.type === 'video') {
+            if (mediaType.video) {
                 const extRegExp = /\/\w+$/;
                 let bestVideo = _.find(media.video_info.variants, 'bitrate');
 
@@ -33,9 +40,9 @@ module.exports = (tweets) => {
             } else {
                 const extRegExp = /\.\w+$/;
 
-                if (media.type === 'photo') {
+                if (mediaType.photo) {
                     url = media.media_url_https;
-                } else {
+                } else if (mediaType.animated_gif) {
                     url = _.head(media.video_info.variants).url;
                 }
 
