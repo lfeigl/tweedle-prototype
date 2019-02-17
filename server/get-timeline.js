@@ -11,7 +11,7 @@ const CONST_PARAMS = {
 module.exports = async (req, res, next) => {
     const app = authentication.getApp();
     const params = {
-        ...req.body,
+        ...req.body.twitter,
         ...CONST_PARAMS,
     };
     let timeline = [];
@@ -38,5 +38,5 @@ module.exports = async (req, res, next) => {
 
     timeline.push(duplicate);
     const mediaTweets = _.filter(timeline, 'extended_entities').reverse();
-    extractMedia(mediaTweets);
+    extractMedia(mediaTweets, req.body.tpmdl);
 };

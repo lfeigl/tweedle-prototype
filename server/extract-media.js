@@ -5,13 +5,17 @@ const https = require('https');
 const moment = require('moment');
 const mediaDir = path.resolve('media');
 
-module.exports = (tweets) => {
+module.exports = (tweets, params) => {
     let lastDate = null;
     let dateCounter = 1;
+
     tweets.forEach((tweet) => {
         const twitterDate = new Date(tweet.created_at);
         const tpmdlDate = moment(twitterDate).format('YYYY-MM-DD');
-        tweet.extended_entities.media.forEach((media) => {
+
+        _.filter(tweet.extended_entities.media, (media) => {
+            return params.mediaTypes[media.type];
+        }).forEach((media) => {
             let url = null;
             let ext = null;
             const mediaType = {
