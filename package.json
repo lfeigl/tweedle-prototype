@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/matze-kalle/twitter-profile-media-downloader.git"
   },
-  "author": "Matze Kalle",
+  "author": "Luca Feigl",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/matze-kalle/twitter-profile-media-downloader/issues"
@@ -24,6 +24,6 @@
     "express": "^4.16.4",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "twitter-lite": "^0.9.0"
+    "twitter-lite": "^0.9.1"
   }
 }
