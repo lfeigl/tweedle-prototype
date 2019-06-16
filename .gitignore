@@ -1,5 +1,10 @@
+# IDEs
+.vscode
+
+# Directories
 node_modules
 media
 
+# Files
 .env
 pid.log
