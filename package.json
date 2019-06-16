@@ -2,7 +2,7 @@
   "name": "twitter-profile-media-downloader",
   "version": "0.0.0",
   "description": "Download all media of a Twitter profile.",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scripts": {
     "postinstall": "node ./scripts/index.js",
     "start": "node ./server/index.js",
@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/matze-kalle/twitter-profile-media-downloader#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "twitter-lite": "^0.9.1"
+    "twitter-lite": "^0.9.4"
   }
 }
