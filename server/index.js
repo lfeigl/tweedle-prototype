@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint no-unused-vars: 0, no-console: 0 */
 
 const dotenv = require('dotenv');
