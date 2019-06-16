@@ -2,13 +2,14 @@ const path = require('path');
 const fs = require('fs');
 const DOTENV = path.resolve('.env');
 const TEMPLATE = [
-    'TWITTER_BEARER_TOKEN=',
+    '# Your Twitter app credentials:',
+    'TWITTER_BEARER_TOKEN=<bearer token>',
+    '# or',
+    'TWITTER_CONSUMER_KEY=<consumer API key>',
+    'TWITTER_CONSUMER_SECRET=<consumer API secret key>',
     '',
-    'TWITTER_CONSUMER_KEY=',
-    'TWITTER_CONSUMER_SECRET=',
-    '',
-    'TPMDL_PORT=',
-    '',
+    '# TPMDL settings:',
+    'TPMDL_PORT=1337',
 ];
 
 module.exports = () => {
