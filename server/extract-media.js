@@ -9,13 +9,14 @@ module.exports = (tweets, params) => {
     let lastDate = null;
     let dateCounter = 1;
 
-    tweets.forEach((tweet) => {
+    for (const tweet of tweets) {
         const twitterDate = new Date(tweet.created_at);
         const tpmdlDate = moment(twitterDate).format('YYYY-MM-DD');
-
-        _.filter(tweet.extended_entities.media, (media) => {
+        const allMedia = _.filter(tweet.extended_entities.media, (media) => {
             return params.mediaTypes[media.type];
-        }).forEach((media) => {
+        });
+
+        for (const media of allMedia) {
             let url = null;
             let ext = null;
             const mediaType = {
@@ -60,6 +61,6 @@ module.exports = (tweets, params) => {
             https.get(url, (res) => {
                 res.pipe(fileStream);
             });
-        });
-    });
+        }
+    }
 };
