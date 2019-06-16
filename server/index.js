@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: 0, no-console: 0 */
 
-require('dotenv').config();
-
+const dotenv = require('dotenv');
+const config = dotenv.config();
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -33,14 +33,22 @@ server.use((err, req, res, next) => {
     }
 });
 
-server.listen(port, async () => {
-    console.log(`TPMDL: Listening on port ${port}.`);
+if (config.error) {
+    throw config.error;
+} else {
+    start();
+}
 
-    try {
-        console.log('TPMDL: Authenticate to Twitter API...');
-        await authentication.authenticate();
-        console.log('TPMDL: Authenticated.');
-    } catch (err) {
-        console.error(err);
-    }
-});
+function start() {
+    server.listen(port, async () => {
+        console.log(`TPMDL: Listening on port ${port}.`);
+
+        try {
+            console.log('TPMDL: Authenticate to Twitter API...');
+            await authentication.authenticate();
+            console.log('TPMDL: Authenticated.');
+        } catch (err) {
+            console.error(err);
+        }
+    });
+}
