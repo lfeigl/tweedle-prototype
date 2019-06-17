@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "node ./scripts/index.js",
     "start": "node ./server/index.js",
-    "watch-server": "supervisor -w ./server -s -pid pid.log -n error ./server/index.js"
+    "watch-server": "nodemon -w ./server -V"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "supervisor": "^0.12.0"
+    "nodemon": "^1.19.1"
   }
 }
