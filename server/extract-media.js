@@ -4,10 +4,21 @@ const fs = require('fs');
 const https = require('https');
 const moment = require('moment');
 const mediaDir = path.resolve('media');
+const DEFAULT_PARAMS = {
+    mediaTypes: {
+        photo: false,
+        video: false,
+        animated_gif: false,
+    },
+};
 
 module.exports = (tweets, params) => {
     let lastDate = null;
     let dateCounter = 1;
+    params = {
+        ...DEFAULT_PARAMS,
+        ...params,
+    };
 
     for (const tweet of tweets) {
         const twitterDate = new Date(tweet.created_at);
