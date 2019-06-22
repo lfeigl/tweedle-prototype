@@ -21,10 +21,7 @@ module.exports = async (req, res, next) => {
 
     do {
         try {
-            if (lastId) {
-                params.max_id = lastId;
-            }
-
+            if (lastId) params.max_id = lastId;
             timelineChunk = await app.get('statuses/user_timeline', params);
             lastId = _.last(timelineChunk).id_str;
             timeline = timeline.concat(timelineChunk);
@@ -32,7 +29,7 @@ module.exports = async (req, res, next) => {
         } catch (err) {
             return next(err);
         }
-    } while (timelineChunk.length >= CONST_PARAMS.count);
+    } while (timelineChunk.length > 1);
 
     res.sendStatus(200);
 
