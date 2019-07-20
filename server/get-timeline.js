@@ -9,6 +9,8 @@ const CONST_PARAMS = {
 };
 
 module.exports = async (req, res, next) => {
+    if (!_.get(req.body, ['twitter', 'screen_name'])) return res.sendStatus(400);
+
     const app = authentication.getApp();
     const params = {
         ...req.body.twitter,

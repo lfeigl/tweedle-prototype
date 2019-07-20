@@ -1,12 +1,12 @@
 {
   "name": "twitter-profile-media-downloader",
   "version": "0.0.0",
-  "description": "Download all media of a Twitter profile.",
+  "description": "Open API for downloading all media of a Twitter profile.",
   "main": "./server/index.js",
   "scripts": {
     "postinstall": "node ./scripts/index.js",
     "start": "node ./server/index.js",
-    "watch-server": "nodemon -w ./server -V"
+    "dev": "nodemon -V -e js -w ./server"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,12 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "twitter-lite": "^0.9.4"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.1",
     "nodemon": "^1.19.1"
   }
 }

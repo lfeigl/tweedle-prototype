@@ -3,17 +3,29 @@ const path = require('path');
 const fs = require('fs');
 const https = require('https');
 const moment = require('moment');
+const finalize = require('./finalize.js');
 const mediaDir = path.resolve('media');
+const DEFAULT_PARAMS = {
+    media_types: {
+        photo: false,
+        video: false,
+        animated_gif: false,
+    },
+};
 
 module.exports = (tweets, params) => {
     let lastDate = null;
     let dateCounter = 1;
+    params = {
+        ...DEFAULT_PARAMS,
+        ...params,
+    };
 
     for (const tweet of tweets) {
         const twitterDate = new Date(tweet.created_at);
         const tpmdlDate = moment(twitterDate).format('Y-MM-DD');
         const allMedia = _.filter(tweet.extended_entities.media, (media) => {
-            return params.mediaTypes[media.type];
+            return params.media_types[media.type];
         });
 
         for (const media of allMedia) {
@@ -63,4 +75,6 @@ module.exports = (tweets, params) => {
             });
         }
     }
+
+    finalize(mediaDir);
 };
