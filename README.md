@@ -1,6 +1,6 @@
 # Twitter Profile Media Downloader (TPMDL)
 
-Download all media of a Twitter profile.
+Open API for downloading all media of a Twitter profile.
 
 ## Requirements
 
@@ -9,10 +9,10 @@ Download all media of a Twitter profile.
 
 ## Getting started
 
-1. Run `npm install`
-2. Fill in the generated `.env` file with your [Twitter app](https://developer.twitter.com/apps) credentials
-3. *(optional)* Configure TPMDL in the generated `.env` file
-4. Run `npm start`
+1. Run `npm install`.
+2. Fill in the generated `.env` file with your [Twitter app](https://developer.twitter.com/apps) credentials.
+3. *(optional)* Configure TPMDL in the generated `.env` file.
+4. Run `npm start`.
 
 
 ## Usage
@@ -57,4 +57,6 @@ Parameters:
 
 
 ## Development
-Run the `dev` script to start [nodemon](https://nodemon.io). It will monitor for any changes in the `server` directory and automatically restart your server.
+
+- Enable ESLint in your IDE.
+- Run the `dev` script to start [nodemon](https://nodemon.io). It will monitor for any changes in the `server` directory and automatically restart your server.
