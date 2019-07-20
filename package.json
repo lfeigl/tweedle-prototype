@@ -1,7 +1,7 @@
 {
   "name": "twitter-profile-media-downloader",
   "version": "0.0.0",
-  "description": "Download all media of a Twitter profile.",
+  "description": "Open API for downloading all media of a Twitter profile.",
   "main": "./server/index.js",
   "scripts": {
     "postinstall": "node ./scripts/index.js",
