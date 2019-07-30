@@ -8,13 +8,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const authentication = require('./authentication.js');
 const getMediaApi = require('./get-timeline.js');
-const port = process.env.TPMDL_PORT || 3000;
+const port = process.env.TWEEDLE_PORT || 3000;
 const server = express();
 
 server.use(bodyParser.json());
 
 server.get('/', (req, res) => {
-    res.send('TPMDL - Twitter Profile Media Downloader');
+    res.send('Tweedle - Open API for downloading all media of a Twitter profile.');
 });
 
 server.get('/get', getMediaApi);
@@ -42,12 +42,12 @@ if (config.error) {
 
 function start() {
     server.listen(port, async () => {
-        console.log(`TPMDL: Listening on port ${port}.`);
+        console.log(`[Tweedle] Listening on port ${port}.`);
 
         try {
-            console.log('TPMDL: Authenticate to Twitter API...');
+            console.log('[Tweedle] Authenticate to Twitter API...');
             await authentication.authenticate();
-            console.log('TPMDL: Authenticated.');
+            console.log('[Tweedle] Authenticated.');
         } catch (err) {
             console.error(err);
         }

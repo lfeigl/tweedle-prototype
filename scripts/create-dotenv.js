@@ -8,8 +8,8 @@ const TEMPLATE = [
     'TWITTER_CONSUMER_KEY=#<consumer API key>',
     'TWITTER_CONSUMER_SECRET=#<consumer API secret key>',
     '',
-    '# TPMDL settings:',
-    'TPMDL_PORT=1337',
+    '# Tweedle settings:',
+    'TWEEDLE_PORT=1337',
 ];
 
 module.exports = () => {
