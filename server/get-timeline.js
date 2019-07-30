@@ -9,11 +9,11 @@ const CONST_PARAMS = {
 };
 
 module.exports = async (req, res, next) => {
-    if (!_.get(req.body, ['twitter', 'screen_name'])) return res.sendStatus(400);
+    if (!req.body.screen_name) return res.sendStatus(400);
 
     const app = authentication.getApp();
     const params = {
-        ...req.body.twitter,
+        ...req.body,
         ...CONST_PARAMS,
     };
     let timeline = [];
@@ -37,5 +37,5 @@ module.exports = async (req, res, next) => {
 
     timeline.push(duplicate);
     const mediaTweets = _.filter(timeline, 'extended_entities').reverse();
-    extractMedia(mediaTweets, req.body.tpmdl);
+    extractMedia(mediaTweets, req.body);
 };

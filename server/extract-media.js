@@ -23,7 +23,7 @@ module.exports = (tweets, params) => {
 
     for (const tweet of tweets) {
         const twitterDate = new Date(tweet.created_at);
-        const tpmdlDate = moment(twitterDate).format('Y-MM-DD');
+        const tweedleDate = moment(twitterDate).format('Y-MM-DD');
         const allMedia = _.filter(tweet.extended_entities.media, (media) => {
             return params.media_types[media.type];
         });
@@ -39,8 +39,8 @@ module.exports = (tweets, params) => {
 
             mediaType[media.type] = true;
 
-            lastDate === tpmdlDate ? dateCounter++ : dateCounter = 1;
-            lastDate = tpmdlDate;
+            lastDate === tweedleDate ? dateCounter++ : dateCounter = 1;
+            lastDate = tweedleDate;
 
             if (mediaType.video) {
                 const extRegExp = /\/\w+$/;
@@ -66,7 +66,7 @@ module.exports = (tweets, params) => {
                 ext = _.head(url.match(extRegExp));
             }
 
-            const fileName = `${tpmdlDate} (${dateCounter})${ext}`;
+            const fileName = `${tweedleDate} (${dateCounter})${ext}`;
             const filePath = path.join(mediaDir, fileName);
             const fileStream = fs.createWriteStream(filePath);
 
