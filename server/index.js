@@ -45,7 +45,7 @@ function start() {
         console.log(`[Tweedle] Listening on port ${port}.`);
 
         try {
-            console.log('[Tweedle] Authenticate to Twitter API...');
+            console.log('[Tweedle] Authenticating to Twitter API...');
             await authentication.authenticate();
             console.log('[Tweedle] Authenticated.');
         } catch (err) {
