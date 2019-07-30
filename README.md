@@ -1,4 +1,4 @@
-# Twitter Profile Media Downloader (TPMDL)
+# Tweedle
 
 Open API for downloading all media of a Twitter profile.
 
@@ -49,7 +49,7 @@ Parameters:
 - `twitter` **(object)**: Parameters for the Twitter API
   - `screen_name` **(string)**: @ of the respective profile **(REQUIRED)**
   - `exclude_replies` **(boolean)**: Ignore media in replies *(default: `false`)*
-- `tpmdl` **(object)**: Parameters for TPMDL
+- `tpmdl` **(object)**: Parameters for Tweedle
   - `media_types` **(object)**: Parameters regarding which media types to fetch
     - `photo` **(boolean)**: Fetch pictures *(default: `false`)*
     - `video` **(boolean)**: Fetch videos *(default: `false`)*
