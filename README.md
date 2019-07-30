@@ -11,7 +11,7 @@ Open API for downloading all media of a Twitter profile.
 
 1. Run `npm install`.
 2. Fill in the generated `.env` file with your [Twitter app](https://developer.twitter.com/apps) credentials.
-3. *(optional)* Configure TPMDL in the generated `.env` file.
+3. *(optional)* Configure Tweedle in the generated `.env` file.
 4. Run `npm start`.
 
 
