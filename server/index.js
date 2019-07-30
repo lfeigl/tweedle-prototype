@@ -7,7 +7,7 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const authentication = require('./authentication.js');
-const getMediaApi = require('./get-timeline.js');
+const getMediaApi = require('./get/index.js');
 const port = process.env.TWEEDLE_PORT || 3000;
 const server = express();
 

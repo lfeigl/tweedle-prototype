@@ -1,6 +1,5 @@
 const _ = require('lodash');
-const authentication = require('./authentication.js');
-const extractMedia = require('./extract-media.js');
+const authentication = require('../authentication.js');
 const CONST_PARAMS = {
     count: 200,
     trim_user: true,
@@ -8,14 +7,15 @@ const CONST_PARAMS = {
     tweet_mode: 'extended',
 };
 
-module.exports = async (req, res, next) => {
-    if (!req.body.screen_name) return res.sendStatus(400);
+module.exports = async (res, params) => {
+    if (!params.screen_name) return res.sendStatus(400);
 
-    const app = authentication.getApp();
-    const params = {
-        ...req.body,
+    params = {
+        ...params,
         ...CONST_PARAMS,
     };
+
+    const app = authentication.getApp();
     let timeline = [];
     let timelineChunk = [];
     let lastId = null;
@@ -29,13 +29,13 @@ module.exports = async (req, res, next) => {
             timeline = timeline.concat(timelineChunk);
             duplicate = timeline.pop();
         } catch (err) {
-            return next(err);
+            return err;
         }
     } while (timelineChunk.length > 1);
 
     res.sendStatus(200);
 
     timeline.push(duplicate);
-    const mediaTweets = _.filter(timeline, 'extended_entities').reverse();
-    extractMedia(mediaTweets, req.body);
+
+    return _.filter(timeline, 'extended_entities').reverse();
 };
