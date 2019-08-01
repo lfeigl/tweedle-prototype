@@ -40,7 +40,7 @@ async function authenticate() {
       count: 1,
     });
   } catch (res) {
-    const error = _.head(res.errors);
+    const error = res.errors[0];
     throw new Error(`Twitter API error ${error.code}: ${error.message}`);
   }
 }
