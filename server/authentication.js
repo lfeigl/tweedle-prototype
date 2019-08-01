@@ -15,8 +15,8 @@ async function getBearerToken() {
   const res = await user.getBearerToken();
 
   if (res.errors) {
-    const err = _.head(res.errors);
-    throw new Error(`Twitter API error ${err.code}: ${err.message}`);
+    const error = _.head(res.errors);
+    throw new Error(`Twitter API error ${error.code}: ${error.message}`);
   } else {
     return res.access_token;
   }
@@ -26,8 +26,8 @@ async function authenticate() {
   if (_.isEmpty(bearerToken)) {
     try {
       bearerToken = await getBearerToken();
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -36,10 +36,13 @@ async function authenticate() {
   });
 
   try {
-    await app.get('statuses/user_timeline', { screen_name: 'TwitterAPI', count: 1 });
+    await app.get('statuses/user_timeline', {
+      screen_name: 'TwitterAPI',
+      count: 1,
+    });
   } catch (res) {
-    const err = _.head(res.errors);
-    throw new Error(`Twitter API error ${err.code}: ${err.message}`);
+    const error = _.head(res.errors);
+    throw new Error(`Twitter API error ${error.code}: ${error.message}`);
   }
 }
 

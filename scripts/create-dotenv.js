@@ -14,14 +14,16 @@ const TEMPLATE = [
 ];
 
 module.exports = () => {
-  fs.access(DOTENV, (err) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        fs.writeFile(DOTENV, TEMPLATE.join('\n'), (error) => {
-          if (error) throw error;
+  fs.access(DOTENV, (error) => {
+    if (error) {
+      if (error.code === 'ENOENT') {
+        fs.writeFile(DOTENV, TEMPLATE.join('\n'), (err) => {
+          if (err) {
+            throw err;
+          }
         });
       } else {
-        throw err;
+        throw error;
       }
     }
   });

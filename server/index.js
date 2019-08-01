@@ -44,8 +44,8 @@ function start() {
       console.log('[Tweedle] Authenticating to Twitter API...');
       await authentication.authenticate();
       console.log('[Tweedle] Authenticated.');
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   });
 }
