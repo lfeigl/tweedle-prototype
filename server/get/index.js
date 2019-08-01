@@ -3,13 +3,13 @@ const extractMedia = require('./extract-media.js');
 const finalize = require('./finalize.js');
 
 module.exports = async (req, res, next) => {
-    const params = req.body;
+  const params = req.body;
 
-    try {
-        const tweets = await getTimeline(res, params);
-        const mediaDir = extractMedia(tweets, params);
-        finalize(mediaDir);
-    } catch (err) {
-        next(err);
-    }
+  try {
+    const tweets = await getTimeline(res, params);
+    const mediaDir = extractMedia(tweets, params);
+    finalize(mediaDir);
+  } catch (err) {
+    next(err);
+  }
 };
