@@ -13,7 +13,7 @@ const TEMPLATE = [
   'TWEEDLE_PORT=1337',
 ];
 
-module.exports = () => {
+function createDotenv() {
   fs.access(DOTENV, (error) => {
     if (error) {
       if (error.code === 'ENOENT') {
@@ -27,4 +27,6 @@ module.exports = () => {
       }
     }
   });
-};
+}
+
+createDotenv();

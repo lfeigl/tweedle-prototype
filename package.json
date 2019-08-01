@@ -4,7 +4,7 @@
   "description": "Open API for downloading all media of a Twitter profile.",
   "main": "./server/index.js",
   "scripts": {
-    "postinstall": "node ./scripts/index.js",
+    "postinstall": "node ./scripts/create-dotenv.js && node ./scripts/create-media-dir.js",
     "start": "node ./server/index.js",
     "dev": "nodemon -V -e js -w ./server"
   },

@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const MEDIA_DIR = path.resolve('media');
 
-module.exports = () => {
+function createMediaDir() {
   fs.access(MEDIA_DIR, (error) => {
     if (error) {
       if (error.code === 'ENOENT') {
@@ -17,4 +17,6 @@ module.exports = () => {
       }
     }
   });
-};
+}
+
+createMediaDir();
