@@ -19,7 +19,7 @@ module.exports = (dir) => {
         const counter = fileInfo[2];
         const ext = fileInfo[3];
 
-        if ((date !== lastDate || lastDate === null) && counter == 1) {
+        if ((date !== lastDate || lastDate === null) && (counter === 1 || counter === '1')) {
           const newFileName = date + ext;
           const filePath = path.join(dir, fileName);
           const newFilePath = path.join(dir, newFileName);
