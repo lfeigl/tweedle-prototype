@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "node ./scripts/create-dotenv.js && node ./scripts/create-media-dir.js",
     "start": "node ./server/index.js",
-    "dev": "nodemon -V -e js -w ./server"
+    "dev": "nodemon --verbose --ext js --watch ."
   },
   "repository": {
     "type": "git",
