@@ -3,77 +3,82 @@ const path = require('path');
 const fs = require('fs');
 const https = require('https');
 const moment = require('moment');
+
 const mediaDir = path.resolve('media');
 const DEFAULT_PARAMS = {
-    media_types: {
+  media_types: {
+    photo: false,
+    video: false,
+    animated_gif: false,
+  },
+};
+
+module.exports = (tweets, userParams) => {
+  let lastDate = null;
+  let dateCounter = 1;
+  const params = {
+    ...DEFAULT_PARAMS,
+    ...userParams,
+  };
+
+  tweets.forEach((tweet) => {
+    const twitterDate = new Date(tweet.created_at);
+    const tweedleDate = moment(twitterDate).format('Y-MM-DD');
+    const allMedia = _.filter(tweet.extended_entities.media,
+      media => params.media_types[media.type]);
+
+    allMedia.forEach((media) => {
+      let url = null;
+      let ext = null;
+      const mediaType = {
         photo: false,
         video: false,
         animated_gif: false,
-    },
-};
+      };
 
-module.exports = (tweets, params) => {
-    let lastDate = null;
-    let dateCounter = 1;
-    params = {
-        ...DEFAULT_PARAMS,
-        ...params,
-    };
+      mediaType[media.type] = true;
 
-    for (const tweet of tweets) {
-        const twitterDate = new Date(tweet.created_at);
-        const tweedleDate = moment(twitterDate).format('Y-MM-DD');
-        const allMedia = _.filter(tweet.extended_entities.media, (media) => {
-            return params.media_types[media.type];
+      if (lastDate === tweedleDate) {
+        dateCounter += 1;
+      } else {
+        dateCounter = 1;
+      }
+
+      lastDate = tweedleDate;
+
+      if (mediaType.video) {
+        const extRegExp = /\/\w+$/;
+        let bestVideo = _.find(media.video_info.variants, 'bitrate');
+
+        media.video_info.variants.forEach((video) => {
+          if (video.bitrate > bestVideo.bitrate) {
+            bestVideo = video;
+          }
         });
 
-        for (const media of allMedia) {
-            let url = null;
-            let ext = null;
-            const mediaType = {
-                photo: false,
-                video: false,
-                animated_gif: false,
-            };
+        url = bestVideo.url;
+        ext = bestVideo.content_type.match(extRegExp)[0].replace('/', '.');
+      } else {
+        const extRegExp = /\.\w+$/;
 
-            mediaType[media.type] = true;
-
-            lastDate === tweedleDate ? dateCounter++ : dateCounter = 1;
-            lastDate = tweedleDate;
-
-            if (mediaType.video) {
-                const extRegExp = /\/\w+$/;
-                let bestVideo = _.find(media.video_info.variants, 'bitrate');
-
-                media.video_info.variants.forEach((video) => {
-                    if (video.bitrate > bestVideo.bitrate) {
-                        bestVideo = video;
-                    }
-                });
-
-                url = bestVideo.url;
-                ext = _.head(bestVideo.content_type.match(extRegExp)).replace('/', '.');
-            } else {
-                const extRegExp = /\.\w+$/;
-
-                if (mediaType.photo) {
-                    url = media.media_url_https;
-                } else if (mediaType.animated_gif) {
-                    url = _.head(media.video_info.variants).url;
-                }
-
-                ext = _.head(url.match(extRegExp));
-            }
-
-            const fileName = `${tweedleDate} (${dateCounter})${ext}`;
-            const filePath = path.join(mediaDir, fileName);
-            const fileStream = fs.createWriteStream(filePath);
-
-            https.get(url, (res) => {
-                res.pipe(fileStream);
-            });
+        if (mediaType.photo) {
+          url = media.media_url_https;
+        } else if (mediaType.animated_gif) {
+          url = media.video_info.variants[0].url;
         }
-    }
 
-    return mediaDir;
+        ext = url.match(extRegExp)[0];
+      }
+
+      const fileName = `${tweedleDate} (${dateCounter})${ext}`;
+      const filePath = path.join(mediaDir, fileName);
+      const fileStream = fs.createWriteStream(filePath);
+
+      https.get(url, (res) => {
+        res.pipe(fileStream);
+      });
+    });
+  });
+
+  return mediaDir;
 };

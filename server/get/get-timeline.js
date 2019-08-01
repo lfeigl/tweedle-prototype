@@ -31,8 +31,8 @@ module.exports = async (res, userParams) => {
       lastId = _.last(timelineChunk).id_str;
       timeline = timeline.concat(timelineChunk);
       duplicate = timeline.pop();
-    } catch (err) {
-      return err;
+    } catch (error) {
+      throw error;
     }
   } while (timelineChunk.length > 1);
 
