@@ -7,7 +7,7 @@ const config = dotenv.config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const errorHandling = require('../middlewares/error-handling.js');
-const authentication = require('./authentication.js');
+const authentication = require('../utils/authentication.js');
 const getMediaApi = require('./get/index.js');
 
 const port = process.env.TWEEDLE_PORT || 3000;
