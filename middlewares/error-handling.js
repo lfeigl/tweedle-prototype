@@ -11,6 +11,6 @@ module.exports = (err, req, res, next) => {
     res.status(statusCode).send(statusText);
   } else {
     console.error(err.stack);
-    res.status(500).send(err.message);
+    res.sendStatus(500);
   }
 };
