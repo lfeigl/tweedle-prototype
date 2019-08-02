@@ -2,11 +2,12 @@
   "name": "tweedle",
   "version": "0.0.0",
   "description": "Open API for downloading all media of a Twitter profile.",
-  "main": "./server/index.js",
+  "main": "./index.js",
   "scripts": {
-    "postinstall": "node ./scripts/index.js",
-    "start": "node ./server/index.js",
-    "dev": "nodemon -V -e js -w ./server"
+    "postinstall": "node ./scripts/create-dotenv.js && node ./scripts/create-media-dir.js",
+    "start": "node ./index.js",
+    "dev": "nodemon --verbose --ext js --watch .",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,9 @@
     "twitter-lite": "^0.9.4"
   },
   "devDependencies": {
-    "eslint": "^6.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.1"
   }
 }
