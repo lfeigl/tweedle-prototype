@@ -2,10 +2,10 @@
   "name": "tweedle",
   "version": "0.0.0",
   "description": "Open API for downloading all media of a Twitter profile.",
-  "main": "./server/index.js",
+  "main": "./index.js",
   "scripts": {
     "postinstall": "node ./scripts/create-dotenv.js && node ./scripts/create-media-dir.js",
-    "start": "node ./server/index.js",
+    "start": "node ./index.js",
     "dev": "nodemon --verbose --ext js --watch ."
   },
   "repository": {
