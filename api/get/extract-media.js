@@ -67,7 +67,7 @@ module.exports = (tweets, userParams) => {
           url = media.video_info.variants[0].url;
         }
 
-        ext = url.match(extRegExp)[0];
+        [ext] = url.match(extRegExp);
       }
 
       const fileName = `${tweedleDate} (${dateCounter})${ext}`;
