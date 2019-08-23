@@ -25,15 +25,11 @@ module.exports = async (res, userParams) => {
   let duplicate = null;
 
   do {
-    try {
-      if (lastId) params.max_id = lastId;
-      timelineChunk = await client.get('statuses/user_timeline', params);
-      lastId = _.last(timelineChunk).id_str;
-      timeline = timeline.concat(timelineChunk);
-      duplicate = timeline.pop();
-    } catch (error) {
-      throw error;
-    }
+    if (lastId) params.max_id = lastId;
+    timelineChunk = await client.get('statuses/user_timeline', params);
+    lastId = _.last(timelineChunk).id_str;
+    timeline = timeline.concat(timelineChunk);
+    duplicate = timeline.pop();
   } while (timelineChunk.length > 1);
 
   res.sendStatus(200);

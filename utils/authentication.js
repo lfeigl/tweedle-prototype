@@ -12,22 +12,14 @@ async function getBearerToken() {
     consumer_secret: consumerSecret,
   });
 
-  try {
-    const res = await client.getBearerToken();
+  const res = await client.getBearerToken();
 
-    return res.access_token;
-  } catch (error) {
-    throw error;
-  }
+  return res.access_token;
 }
 
 async function authenticate() {
   if (_.isEmpty(bearerToken)) {
-    try {
-      bearerToken = await getBearerToken();
-    } catch (error) {
-      throw error;
-    }
+    bearerToken = await getBearerToken();
   }
 
   client = new TwitterClient({

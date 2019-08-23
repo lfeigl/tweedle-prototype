@@ -25,7 +25,7 @@ module.exports = (tweets, userParams) => {
     const twitterDate = new Date(tweet.created_at);
     const tweedleDate = moment(twitterDate).format('Y-MM-DD');
     const allMedia = _.filter(tweet.extended_entities.media,
-      media => params.media_types[media.type]);
+      (media) => params.media_types[media.type]);
 
     allMedia.forEach((media) => {
       let url = null;
