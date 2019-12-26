@@ -22,16 +22,12 @@ Send a HTTP GET request at `/get` with a JSON in its body. The JSON can contain 
 Example:
 ```json
 {
-    "twitter": {
-        "screen_name": "twitterapi",
-        "exclude_replies": true
-    },
-    "tpmdl": {
-        "media_types": {
-            "photo": true,
-            "video": false,
-            "animated_gif": false
-        }
+    "screen_name": "twitterapi",
+    "exclude_replies": true,
+    "media_types": {
+        "photo": true,
+        "video": false,
+        "animated_gif": false
     }
 }
 ```
@@ -43,17 +39,15 @@ Example:
 
 | HTTP method | body type               | required parameters       |
 |:-----------:|:-----------------------:|:-------------------------:|
-| GET         | JSON (application/json) | - `twitter`/`screen_name` |
+| GET         | JSON (application/json) | `screen_name`             |
 
 Parameters:
-- `twitter` **(object)**: Parameters for the Twitter API
-  - `screen_name` **(string)**: @ of the respective profile **(REQUIRED)**
-  - `exclude_replies` **(boolean)**: Ignore media in replies *(default: `false`)*
-- `tpmdl` **(object)**: Parameters for Tweedle
-  - `media_types` **(object)**: Parameters regarding which media types to fetch
-    - `photo` **(boolean)**: Fetch pictures *(default: `false`)*
-    - `video` **(boolean)**: Fetch videos *(default: `false`)*
-    - `animated_gif` **(boolean)**: Fetch GIFs *(default: `false`)*
+- `screen_name` **(string)**: @ of the respective profile **(REQUIRED)**
+- `exclude_replies` **(boolean)**: Ignore media in replies *(default: `false`)*
+- `media_types` **(object)**: Parameters regarding which media types to fetch
+  - `photo` **(boolean)**: Fetch pictures *(default: `false`)*
+  - `video` **(boolean)**: Fetch videos *(default: `false`)*
+  - `animated_gif` **(boolean)**: Fetch GIFs *(default: `false`)*
 
 
 ## Development
