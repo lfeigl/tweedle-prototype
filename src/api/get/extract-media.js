@@ -70,7 +70,7 @@ module.exports = (tweets, userParams) => {
         [ext] = url.match(extRegExp);
       }
 
-      const fileName = `${tweedleDate} (${dateCounter})${ext}`;
+      const fileName = `${tweedleDate}_${dateCounter}${ext}`;
       const filePath = path.join(mediaDir, fileName);
       const fileStream = fs.createWriteStream(filePath);
 
