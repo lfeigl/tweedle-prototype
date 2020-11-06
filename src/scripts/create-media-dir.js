@@ -1,22 +1,21 @@
-const path = require('path');
-const fs = require('fs');
+const { resolve } = require('path');
+const { access, mkdir } = require('fs');
+const { promisify } = require('util');
 
-const MEDIA_DIR = path.resolve('media');
+const accessAsync = promisify(access);
+const mkdirAsync = promisify(mkdir);
+const MEDIA_DIR = resolve('media');
 
-function createMediaDir() {
-  fs.access(MEDIA_DIR, (error) => {
-    if (error) {
-      if (error.code === 'ENOENT') {
-        fs.mkdir(MEDIA_DIR, (err) => {
-          if (err) {
-            throw err;
-          }
-        });
-      } else {
-        throw error;
-      }
+async function createMediaDir() {
+  try {
+    await accessAsync(MEDIA_DIR);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      await mkdirAsync(MEDIA_DIR);
+    } else {
+      throw error;
     }
-  });
+  }
 }
 
 createMediaDir();
