@@ -4,10 +4,10 @@ const fs = require('fs');
 const DOTENV = path.resolve('.env');
 const TEMPLATE = [
   '# Your Twitter app credentials:',
-  'TWITTER_BEARER_TOKEN=#<bearer token>',
+  'TWITTER_BEARER_TOKEN=',
   '# or',
-  'TWITTER_CONSUMER_KEY=#<consumer API key>',
-  'TWITTER_CONSUMER_SECRET=#<consumer API secret key>',
+  'TWITTER_CONSUMER_KEY=',
+  'TWITTER_CONSUMER_SECRET=',
   '',
   '# Tweedle settings:',
   'TWEEDLE_PORT=1337',
