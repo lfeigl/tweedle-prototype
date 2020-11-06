@@ -1,7 +1,10 @@
-const path = require('path');
-const fs = require('fs');
+const { resolve } = require('path');
+const { access, writeFile } = require('fs');
+const { promisify } = require('util');
 
-const DOTENV = path.resolve('.env');
+const accessAsync = promisify(access);
+const writeFileAsync = promisify(writeFile);
+const DOTENV = resolve('.env');
 const TEMPLATE = [
   '# Your Twitter app credentials:',
   'TWITTER_BEARER_TOKEN=',
@@ -11,22 +14,19 @@ const TEMPLATE = [
   '',
   '# Tweedle settings:',
   'TWEEDLE_PORT=1337',
+  '',
 ];
 
-function createDotenv() {
-  fs.access(DOTENV, (error) => {
-    if (error) {
-      if (error.code === 'ENOENT') {
-        fs.writeFile(DOTENV, TEMPLATE.join('\n'), (err) => {
-          if (err) {
-            throw err;
-          }
-        });
-      } else {
-        throw error;
-      }
+async function createDotenv() {
+  try {
+    await accessAsync(DOTENV);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      await writeFileAsync(DOTENV, TEMPLATE.join('\n'));
+    } else {
+      throw error;
     }
-  });
+  }
 }
 
 createDotenv();
